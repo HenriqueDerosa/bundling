@@ -1,0 +1,9 @@
+query getMoviesQuery {
+  countries {
+    code
+    name
+    phone
+    currency
+    emoji
+  }
+}

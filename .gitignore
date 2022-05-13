@@ -1,0 +1,13 @@
+# Logs
+.DS_Store
+
+# Dependency
+**/node_modules
+package-lock.json
+yarn.lock
+
+# Build
+**/build
+
+# IDE
+.vscode
