@@ -1,19 +1,9 @@
-const esbuild = require("esbuild");
-const { builtinModules } = require("node:module");
-// const { nodeExternalsPlugin } = require("esbuild-node-externals");
-const pkg = require("../package.json");
-const config = require("./config");
+import { build } from "esbuild";
+import config from "./config.js";
 
 const run = async () => {
   try {
-    await esbuild.build({
-      ...config,
-      /* external: [
-        ...builtinModules,
-        ...Object.keys(pkg.dependencies),
-        ...Object.keys(pkg.peerDependencies || {}),
-      ], */
-    });
+    await build(config);
     console.log("\n✓ Build has finished! 📦\n");
   } catch (e) {
     console.log("\n❌ Build has failed! 🚨\n");

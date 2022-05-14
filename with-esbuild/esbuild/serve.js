@@ -1,11 +1,12 @@
-const esbuild = require("esbuild");
-const config = require("./config");
+import { serve } from "esbuild";
+import config from "./config.js";
 
 const run = async () => {
   try {
-    await esbuild.serve(
+    await serve(
       {
         servedir: "public",
+        port: 8000,
       },
       config
     );

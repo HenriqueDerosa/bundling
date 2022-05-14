@@ -1,13 +1,20 @@
-const inlineImage = require("esbuild-plugin-inline-image");
-const cssModulesPlugin = require("esbuild-css-modules-plugin");
+import esbuild from "esbuild";
+import inlineImage from "esbuild-plugin-inline-image";
+import cssModulesPlugin from "esbuild-css-modules-plugin";
 
-module.exports = {
-  logLevel: "info",
+const outdir = "public";
+
+/** @type {esbuild.BuildOptions} */
+const config = {
+  format: "esm",
+  treeShaking: true,
+  chunkNames: "[name]-[hash]",
+  logLevel: process.env.NODE_ENV === "development" ? "debug" : "info",
   entryPoints: ["./src/index.js"],
-  // outfile: "./public/js/app.js",
-  outdir: "public",
+  outdir,
   bundle: true,
   // sourcemap: true,
+  minify: !!process.env.NODE_ENV === "production",
   loader: {
     ".js": "jsx",
     ".png": "dataurl",
@@ -17,15 +24,12 @@ module.exports = {
   plugins: [
     cssModulesPlugin({
       inject: true,
-      // v2: true,
-      outdir: "./public",
+      outdir,
     }),
     inlineImage({
       extensions: ["svg"],
     }),
   ],
-  /* externals: [
-    ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.devDependencies || {}),
-  ], */
 };
+
+export default config;
